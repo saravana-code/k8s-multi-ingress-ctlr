@@ -1,0 +1,13 @@
+---
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration
+  namespace: ingress-internal
+  labels:
+    app: ingress-internal
+data:
+  proxy-body-size: "200m"
+  proxy-set-headers: "ingress-internal/custom-headers"
+  use-proxy-protocol: "true"

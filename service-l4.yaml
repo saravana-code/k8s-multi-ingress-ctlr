@@ -1,0 +1,25 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-internal
+  namespace: ingress-internal
+  labels:
+    app: ingress-internal
+  annotations:
+    # Enable PROXY protocol
+    service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: '*'
+    # Increase the ELB idle timeout to avoid issues with WebSockets or Server-Sent Events.
+    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: '3600'
+    service.beta.kubernetes.io/aws-load-balancer-internal: '0.0.0.0/0'
+
+spec:
+  type: LoadBalancer
+  selector:
+    app: ingress-internal
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+  - name: https
+    port: 443
+    targetPort: https

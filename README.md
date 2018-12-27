@@ -21,3 +21,14 @@ Remove this:
 ```      
 If the ingress is with nginx it will add entries to public facing ingress-nginx controller, if you add it with nginx-internal it will create entries
 on private facing ingress-nginx controller
+
+Major change on deployment.yaml and service.yaml are below:
+
+deplyment.yaml under container args
+```
+"--ingress-class=nginx-internal",
+```
+service.yaml under annotations
+```
+service.beta.kubernetes.io/aws-load-balancer-internal: '0.0.0.0/0'
+```
